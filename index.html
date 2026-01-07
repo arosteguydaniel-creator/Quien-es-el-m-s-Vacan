@@ -6,12 +6,12 @@
     <title>¿Quién es el más vacán?</title>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
-      body { 
+        body { 
             font-family: 'Arial Black', sans-serif; 
-            /* Eliminamos el blanco puro y usamos azul y rosado más vibrantes */
-            background: linear-gradient(-45deg, #74b9ff, #fab1a0, #81ecec, #ff7675);
+            /* Fondo equilibrado: Predomina el azul, rosado muy suave */
+            background: linear-gradient(-45deg, #74b9ff, #a29bfe, #81ecec, #fab1a0);
             background-size: 400% 400%;
-            animation: gradientBG 8s ease infinite; /* Un poco más rápido para que se note el flujo */
+            animation: gradientBG 12s ease infinite;
             display: flex; 
             flex-direction: column;
             align-items: center; 
@@ -20,16 +20,25 @@
             min-height: 100vh;
         }
 
+        /* Animación del movimiento del fondo */
         @keyframes gradientBG {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
 
+        /* La vaquita con efecto de flotar */
         .vaca-img { 
             width: 150px; 
             display: block; 
             margin: 0 auto 10px auto; 
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
         }
 
         h1 { 
@@ -51,15 +60,13 @@
         }
 
         .card { 
-            background: rgba(255, 255, 255, 0.9);
+            background: white;
             width: 100%; 
             max-width: 350px; 
             border-radius: 20px; 
             padding: 30px 20px; 
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1); 
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15); 
             text-align: center;
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(255,255,255,0.3);
         }
 
         .tipo-pregunta { 
