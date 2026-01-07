@@ -3,89 +3,72 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trivia de Preguntas</title>
+    <title>¿Quién es el más vacán?</title>
     <style>
-        /* Estilo inspirado en tu imagen */
-        body { font-family: 'Arial', sans-serif; background-color: #f4f4f4; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
-        .card { background: white; width: 90%; max-width: 400px; padding: 20px; border-radius: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); text-align: center; position: relative; }
-        .header-img { width: 100px; margin-bottom: 10px; }
-        .question-number { background: #3498db; color: white; padding: 5px 15px; border-radius: 20px; display: inline-block; font-weight: bold; margin-bottom: 20px; }
-        .question-text { font-size: 1.2rem; min-height: 80px; margin-bottom: 30px; color: #333; }
-        .btn-container { display: flex; justify-content: space-around; }
-        button { border: none; padding: 15px 30px; border-radius: 15px; color: white; font-weight: bold; cursor: pointer; font-size: 1rem; transition: transform 0.2s; }
-        .btn-true { background-color: #2ecc71; }
-        .btn-false { background-color: #e74c3c; }
-        button:active { transform: scale(0.95); }
-        .message { margin-top: 20px; font-weight: bold; }
-    </style>
-</head>
-<body>
-
-<div class="card">
-    <img src="VACAN_2.png" alt="Icono" class="header-img"> <div id="q-number" class="question-number">PREGUNTA #1</div>
-    <div id="q-text" class="question-text">Cargando pregunta...</div>
-    
-    <div class="btn-container">
-        <button class="btn-true" onclick="check(true)">VERDADERO</button>
-        <button class="btn-false" onclick="check(false)">FALSO</button>
-    </div>
-    <div id="feedback" class="message"></div>
-</div>
-
-<script>
-    // 1. LISTA DE PREGUNTAS
-    const bancoPreguntas = [
-        { q: "¿El colibrí abeja es el ave más pequeña del mundo?", a: true },
-        { q: "¿El sol es un planeta?", a: false },
-        { q: "¿El agua hierve a 100 grados Celsius?", a: true },
-        { q: "¿Los gatos tienen 5 vidas?", a: false }
-        // Puedes añadir cientos aquí...
-    ];
-
-    let preguntasDisponibles = [...bancoPreguntas];
-    let indexActual = 0;
-    let contador = 1;
-
-    function mostrarPregunta() {
-        if (preguntasDisponibles.length === 0) {
-            document.getElementById('q-text').innerHTML = "¡Has terminado todas las preguntas!";
-            document.querySelector('.btn-container').style.display = 'none';
-            return;
+        body { 
+            font-family: 'Arial Black', sans-serif; 
+            background-color: #f8f9fa; 
+            display: flex; 
+            flex-direction: column;
+            align-items: center; 
+            padding: 20px;
+            margin: 0;
         }
-
-        // Seleccionamos una al azar del mazo restante
-        indexActual = Math.floor(Math.random() * preguntasDisponibles.length);
-        const p = preguntasDisponibles[indexActual];
-        
-        document.getElementById('q-text').innerText = p.q;
-        document.getElementById('q-number').innerText = "PREGUNTA #" + contador;
-    }
-
-    function check(respuestaUsuario) {
-        const p = preguntasDisponibles[indexActual];
-        const feedback = document.getElementById('feedback');
-
-        if (respuestaUsuario === p.a) {
-            feedback.innerText = "¡Correcto! 🎉";
-            feedback.style.color = "green";
-        } else {
-            feedback.innerText = "Incorrecto ❌";
-            feedback.style.color = "red";
+        /* La vaquita centrada y arriba */
+        .vaca-img { 
+            width: 150px; 
+            display: block; 
+            margin: 0 auto 10px auto; 
         }
-
-        // EL SECRETO: Eliminamos la pregunta usada para que no se repita
-        preguntasDisponibles.splice(indexActual, 1);
-        
-        contador++;
-        setTimeout(() => {
-            feedback.innerText = "";
-            mostrarPregunta();
-        }, 1500);
-    }
-
-    mostrarPregunta();
-</script>
-
-</body>
-</html>
-          
+        h1 { 
+            font-style: italic; 
+            font-size: 1.8rem; 
+            margin: 10px 0; 
+            color: #1a1a1a;
+            text-align: center;
+        }
+        .preg-tag { 
+            background-color: #5da2d5; 
+            color: white; 
+            padding: 8px 25px; 
+            border-radius: 25px; 
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+        .card { 
+            background: white; 
+            width: 100%; 
+            max-width: 350px; 
+            border-radius: 15px; 
+            padding: 30px 20px; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1); 
+            text-align: center;
+            border-top: 4px solid #eee;
+        }
+        .tipo-pregunta { 
+            background-color: #d65a6d; 
+            color: white; 
+            padding: 5px 15px; 
+            border-radius: 15px; 
+            font-size: 0.8rem;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+        #texto-pregunta { 
+            font-size: 1.2rem; 
+            color: #333; 
+            margin: 20px 0;
+            line-height: 1.4;
+        }
+        .btn-revelar { 
+            background-color: #d65a6d; 
+            color: white; 
+            border: none; 
+            padding: 15px; 
+            border-radius: 12px; 
+            font-size: 1.1rem; 
+            width: 100%; 
+            cursor: pointer; 
+            font-weight: bold;
+            display:
