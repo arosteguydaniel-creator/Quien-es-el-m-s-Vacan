@@ -14,7 +14,6 @@
             padding: 20px;
             margin: 0;
         }
-        /* La vaquita centrada y arriba */
         .vaca-img { 
             width: 150px; 
             display: block; 
@@ -71,4 +70,96 @@
             width: 100%; 
             cursor: pointer; 
             font-weight: bold;
-            display:
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        #respuesta { 
+            margin-top: 15px; 
+            font-weight: bold; 
+            font-size: 1.2rem; 
+            color: #2ecc71;
+            display: none; 
+        }
+        .btn-siguiente { 
+            background-color: #5da2d5; 
+            color: white; 
+            border: none; 
+            padding: 12px; 
+            border-radius: 10px; 
+            margin-top: 15px; 
+            width: 100%; 
+            cursor: pointer;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <img src="VACAN_2.png" alt="La Vaca" class="vaca-img" onerror="this.style.display='none'"> 
+
+    <h1>¿QUIÉN ES EL MÁS VACÁN?</h1>
+
+    <div id="contador" class="preg-tag">PREGUNTA #1</div>
+
+    <div class="card">
+        <div class="tipo-pregunta">¿VERDADERO O FALSO?</div>
+        <p id="texto-pregunta">Cargando...</p>
+        
+        <button id="btn-revelar" class="btn-revelar" onclick="revelar()">
+            🔍 REVELAR RESPUESTA
+        </button>
+        
+        <div id="respuesta"></div>
+        
+        <button id="btn-siguiente" class="btn-siguiente" onclick="siguiente()">
+            SIGUIENTE PREGUNTA ➔
+        </button>
+    </div>
+
+<script>
+    const bancoPreguntas = [
+        { q: "Los relámpagos pueden caer dos veces en el mismo lugar.", a: "¡VERDADERO! Sucede muy seguido." },
+        { q: "¿El colibrí abeja es el ave más pequeña?", a: "VERDADERO. Mide 5cm." },
+        { q: "¿El sol es un planeta?", a: "FALSO. Es una estrella." },
+        { q: "¿Los peces cierran los ojos para dormir?", a: "FALSO. No tienen párpados." }
+    ];
+
+    let mazo = [...bancoPreguntas];
+    let actual = 0;
+    let num = 1;
+
+    function sacarPregunta() {
+        if (mazo.length === 0) {
+            document.getElementById('texto-pregunta').innerText = "¡Completaste todas las preguntas!";
+            document.getElementById('btn-revelar').style.display = 'none';
+            return;
+        }
+        actual = Math.floor(Math.random() * mazo.length);
+        document.getElementById('texto-pregunta').innerText = mazo[actual].q;
+        document.getElementById('contador').innerText = "PREGUNTA #" + num;
+        document.getElementById('respuesta').style.display = 'none';
+        document.getElementById('btn-siguiente').style.display = 'none';
+        document.getElementById('btn-revelar').style.display = 'flex';
+    }
+
+    function revelar() {
+        const respDiv = document.getElementById('respuesta');
+        respDiv.innerText = mazo[actual].a;
+        respDiv.style.display = 'block';
+        document.getElementById('btn-revelar').style.display = 'none';
+        document.getElementById('btn-siguiente').style.display = 'block';
+    }
+
+    function siguiente() {
+        mazo.splice(actual, 1); 
+        num++;
+        sacarPregunta();
+    }
+
+    sacarPregunta();
+</script>
+
+</body>
+</html>
