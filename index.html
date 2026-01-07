@@ -4,12 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>¿Quién es el más vacán?</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
-body { 
+        body { 
             font-family: 'Arial Black', sans-serif; 
-            /* Colores vibrantes de la vaquita */
-            background: linear-gradient(135deg, #a7d8ff 0%, #ffffff 50%, #ffb3ba 100%);
-            background-attachment: fixed;
+            /* Fondo animado con colores fuertes de la vaquita */
+            background: linear-gradient(-45deg, #a7d8ff, #ffffff, #ffb3ba, #ffffff);
+            background-size: 400% 400%;
+            animation: gradientBG 12s ease infinite;
             display: flex; 
             flex-direction: column;
             align-items: center; 
@@ -17,11 +19,20 @@ body {
             margin: 0;
             min-height: 100vh;
         }
+
+        /* Animación del fondo */
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
         .vaca-img { 
             width: 150px; 
             display: block; 
             margin: 0 auto 10px auto; 
         }
+
         h1 { 
             font-style: italic; 
             font-size: 1.8rem; 
@@ -29,6 +40,7 @@ body {
             color: #1a1a1a;
             text-align: center;
         }
+
         .preg-tag { 
             background-color: #5da2d5; 
             color: white; 
@@ -38,16 +50,19 @@ body {
             margin-bottom: 20px;
             display: inline-block;
         }
+
         .card { 
-            background: white; 
+            background: rgba(255, 255, 255, 0.9);
             width: 100%; 
             max-width: 350px; 
-            border-radius: 15px; 
+            border-radius: 20px; 
             padding: 30px 20px; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1); 
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1); 
             text-align: center;
-            border-top: 4px solid #eee;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255,255,255,0.3);
         }
+
         .tipo-pregunta { 
             background-color: #d65a6d; 
             color: white; 
@@ -57,12 +72,14 @@ body {
             display: inline-block;
             margin-bottom: 15px;
         }
+
         #texto-pregunta { 
             font-size: 1.2rem; 
             color: #333; 
             margin: 20px 0;
             line-height: 1.4;
         }
+
         .btn-revelar { 
             background-color: #d65a6d; 
             color: white; 
@@ -77,7 +94,11 @@ body {
             align-items: center;
             justify-content: center;
             gap: 10px;
+            transition: transform 0.2s;
         }
+
+        .btn-revelar:active { transform: scale(0.98); }
+
         #respuesta { 
             margin-top: 15px; 
             font-weight: bold; 
@@ -85,6 +106,7 @@ body {
             color: #2ecc71;
             display: none; 
         }
+
         .btn-siguiente { 
             background-color: #5da2d5; 
             color: white; 
@@ -122,7 +144,7 @@ body {
     </div>
 
 <script>
-  const bancoPreguntas = [
+    const bancoPreguntas = [
         { q: "¿El sonido viaja más rápido en el agua que en el aire?", a: "¡VERDADERO! El agua es más densa." },
         { q: "¿Las jirafas tienen cuerdas vocales?", a: "FALSO. Son prácticamente mudas." },
         { q: "¿Chile es el país más largo del mundo?", a: "VERDADERO. (De norte a sur)." },
@@ -171,8 +193,10 @@ body {
 
     function sacarPregunta() {
         if (mazo.length === 0) {
-            document.getElementById('texto-pregunta').innerText = "¡Completaste todas las preguntas!";
+            document.getElementById('texto-pregunta').innerHTML = "¡Felicidades!<br>Eres el más Vacán 🔥🐮";
             document.getElementById('btn-revelar').style.display = 'none';
+            document.getElementById('contador').innerText = "¡VICTORIA!";
+            confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
             return;
         }
         actual = Math.floor(Math.random() * mazo.length);
