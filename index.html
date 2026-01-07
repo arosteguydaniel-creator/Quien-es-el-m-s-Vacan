@@ -6,12 +6,12 @@
     <title>¿Quién es el más vacán?</title>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
-        body { 
+      body { 
             font-family: 'Arial Black', sans-serif; 
-            /* Fondo animado con colores fuertes de la vaquita */
-            background: linear-gradient(-45deg, #a7d8ff, #ffffff, #ffb3ba, #ffffff);
+            /* Eliminamos el blanco puro y usamos azul y rosado más vibrantes */
+            background: linear-gradient(-45deg, #74b9ff, #fab1a0, #81ecec, #ff7675);
             background-size: 400% 400%;
-            animation: gradientBG 12s ease infinite;
+            animation: gradientBG 8s ease infinite; /* Un poco más rápido para que se note el flujo */
             display: flex; 
             flex-direction: column;
             align-items: center; 
@@ -20,7 +20,6 @@
             min-height: 100vh;
         }
 
-        /* Animación del fondo */
         @keyframes gradientBG {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
